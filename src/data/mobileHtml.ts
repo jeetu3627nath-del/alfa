@@ -897,8 +897,12 @@ export const mobileHtml = `<!DOCTYPE html>
 
         const handleOpen = () => {
           try {
-            window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+            const rect = trigger.getBoundingClientRect();
+            const current = window.scrollY || document.documentElement.scrollTop;
+            const target = Math.max(0, current + rect.top - 80);
+            window.scrollTo({ top: target, behavior: 'smooth' });
           } catch {
+            // fallback
             window.scrollTo(0, 0);
           }
           openModal(modal);
