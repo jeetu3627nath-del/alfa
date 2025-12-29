@@ -36,33 +36,40 @@
 .topbar__nav {
   display: flex;
   gap: 16px;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .subtabs {
   display: flex;
-  gap: 8px;
-  margin: 12px 0 8px;
+  gap: 10px;
+  margin: 14px 0 10px;
 }
 
-.topbar__nav .tab {
+.topbar__nav .tab,
+.subtabs .tab {
   color: #e2e8f0;
-  padding: 8px 10px;
-  border-radius: 10px;
-  transition: background 0.2s ease, color 0.2s ease;
+  padding: 10px 14px;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   border: 1px solid #1f2937;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
+  font-weight: 700;
 }
 
 .tab--active {
   background: linear-gradient(135deg, #38bdf8, #c084fc);
   color: #0b1222;
-  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 10px 36px rgba(56, 189, 248, 0.22);
 }
 
 .topbar__nav .tab:hover {
   background: #111827;
+  color: #e0f2fe;
+}
+
+.subtabs .tab:hover {
+  background: rgba(255, 255, 255, 0.08);
   color: #e0f2fe;
 }
 
