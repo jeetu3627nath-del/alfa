@@ -896,8 +896,15 @@ export const mobileHtml = `<!DOCTYPE html>
                 if (!trigger || !modal) return;
 
         const handleOpen = () => {
-          try { window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }); } catch { window.scrollTo(0, 0); }
+          try {
+            window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+          } catch {
+            window.scrollTo(0, 0);
+          }
           openModal(modal);
+          requestAnimationFrame(() => {
+            modal.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          });
         };
                 const handleKey = (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
