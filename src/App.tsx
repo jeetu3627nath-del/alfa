@@ -17,7 +17,7 @@ import {
 } from './data/b2b'
 
 function App() {
-  const [activeDomain, setActiveDomain] = useState<'b2b' | 'b2c'>('b2c')
+  const [activeDomain, setActiveDomain] = useState<'b2b' | 'b2c' | 'why'>('b2c')
   const [activeSection, setActiveSection] = useState<
     'diagnosis' | 'initiatives' | 'mobile'
   >('diagnosis')
@@ -25,6 +25,7 @@ function App() {
   const domainTabs: { id: typeof activeDomain; label: string }[] = [
     { id: 'b2c', label: 'B2C' },
     { id: 'b2b', label: 'B2B' },
+    { id: 'why', label: 'Почему я' },
   ]
 
   const sectionTabs: { id: typeof activeSection; label: string }[] =
@@ -34,10 +35,12 @@ function App() {
           { id: 'initiatives', label: 'Инициативы' },
           { id: 'mobile', label: 'Мобильный банк' },
         ]
-      : [
-          { id: 'diagnosis', label: 'Диагностика' },
-          { id: 'initiatives', label: 'Инициативы' },
-        ]
+      : activeDomain === 'b2b'
+        ? [
+            { id: 'diagnosis', label: 'Диагностика' },
+            { id: 'initiatives', label: 'Инициативы' },
+          ]
+        : []
 
   return (
     <div className="page">
@@ -52,7 +55,7 @@ function App() {
               key={item.id}
               className={`tab ${activeDomain === item.id ? 'tab--active' : ''}`}
               onClick={() => {
-                if (item.id === 'b2b' && activeSection === 'mobile') {
+                if ((item.id === 'b2b' || item.id === 'b2c') && activeSection === 'mobile') {
                   setActiveSection('diagnosis')
                 }
                 setActiveDomain(item.id)
@@ -65,19 +68,21 @@ function App() {
       </header>
 
       <main>
-        <div className="subtabs">
-          {sectionTabs.map((item) => (
-            <button
-              key={item.id}
-              className={`tab ${activeSection === item.id ? 'tab--active' : ''}`}
-              onClick={() => setActiveSection(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+        {activeDomain !== 'why' && (
+          <div className="subtabs">
+            {sectionTabs.map((item) => (
+              <button
+                key={item.id}
+                className={`tab ${activeSection === item.id ? 'tab--active' : ''}`}
+                onClick={() => setActiveSection(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
 
-        {activeSection === 'diagnosis' && (
+        {activeDomain !== 'why' && activeSection === 'diagnosis' && (
           <Section
             id="diagnosis"
             title={`${activeDomain.toUpperCase()} · Оценка ситуации`}
@@ -109,7 +114,7 @@ function App() {
           </Section>
         )}
 
-        {activeSection === 'initiatives' && (
+        {activeDomain !== 'why' && activeSection === 'initiatives' && (
           <Section
             id="initiatives"
             title={
@@ -135,7 +140,7 @@ function App() {
           </Section>
         )}
 
-        {activeSection === 'mobile' && activeDomain === 'b2c' && (
+        {activeDomain === 'b2c' && activeSection === 'mobile' && (
           <Section
             id="mobile"
             title="B2C · Мобильный банк"
@@ -147,25 +152,17 @@ function App() {
           </Section>
         )}
 
+        {activeDomain === 'why' && (
+          <Section id="why" title="Почему я" subtitle="Роль и подход">
+            <p>
+              Продажи обеспечивают коммуникацию и комфорт, методологи — корректность, IT — написание
+              кода. Я анализирую проблематику от клиентов и подразделений, организую взаимодействие и
+              работу команды по автоматизации и упрощению процессов.
+            </p>
+          </Section>
+        )}
+
       </main>
-
-      <Section
-        id="why"
-        title="Почему я"
-        subtitle="Роль и подход"
-      >
-        <p>
-          Продажи обеспечивают коммуникацию и комфорт, методологи — корректность, IT — написание кода.
-          Я анализирую проблематику от клиентов и подразделений, организую взаимодействие и работу команды
-          по автоматизации и упрощению процессов.
-        </p>
-      </Section>
-
-      <footer className="footer">
-        <a className="button button--ghost" href="#top">
-          Наверх
-        </a>
-      </footer>
     </div>
   )
 }
