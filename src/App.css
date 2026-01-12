@@ -446,6 +446,16 @@ h1 {
   color: #e2e8f0;
 }
 
+.footer__link {
+  color: #c084fc;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
+
 .smart-card__header {
   display: flex;
   gap: 10px;

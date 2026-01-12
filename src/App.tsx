@@ -166,7 +166,10 @@ function App() {
       </main>
 
       <footer className="footer">
-        © Александр Полевой 79150072424
+        © Александр Полевой{' '}
+        <a className="footer__link" href="tel:+79150072424">
+          +7 915 007 24 24
+        </a>
       </footer>
     </div>
   )
