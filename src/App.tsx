@@ -164,6 +164,10 @@ function App() {
         )}
 
       </main>
+
+      <footer className="footer">
+        © Александр Полевой 79150072424
+      </footer>
     </div>
   )
 }
